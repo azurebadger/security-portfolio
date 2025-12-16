@@ -4,7 +4,7 @@
 I'm transitioning into Security Ops / IAM with hands-on labs focused on Microsoft security tooling.
 
 ## Security Labs
-Security Labs: https://github.com/bluebadgersec/security-labs
+Security Labs: https://github.com/bluebadgersec/security-portfolio
 
 ## Skills
 Microsoft Entra ID - Conditional Access - Microsoft Sentinel (KQL) - Defender concepts - Log analysis - Incident response basics
