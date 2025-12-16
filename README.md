@@ -10,4 +10,4 @@ Security Labs: https://github.com/bluebadgersec/security-labs
 Microsoft Entra ID - Conditional Access - Microsoft Sentinel (KQL) - Defender concepts - Log analysis - Incident response basics
 
 ## Current Focus
-SC-200 / SC-300 style labs: detections, investigations, identity hardening, and security monitoring.
+Detections, investigations, identity hardening, and security monitoring.
