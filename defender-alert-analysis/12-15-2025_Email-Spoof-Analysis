@@ -1,1 +1,76 @@
+## Incident Response
 
+**Platform:** Microsof Defender XDR / Exchange Admin
+
+**Category:**  
+Email Security
+
+**Incident Type:**  
+Spoofed Email
+
+**Severity:**  
+Medium
+
+**Final Classification:**  
+True Positive
+
+**Response Level:**  
+Escalated
+
+**Controls Involved:**  
+Email configuration SFP/DKIM/DMARC, transport rules, message trace
+
+---
+
+## .Identification
+Defender did not flag this incident but it was reported to IT directly from the affected user.
+
+USER1 directly reports that they received a Teams meeting invite from what appears to be their own account that they did not send.
+
+---
+
+## .Analysis
+Describe how the alert was investigated and validated.
+
+Focus on:
+- What logs or Defender data were reviewed
+- What signals were confirmed or disproven
+- Whether the activity originated from a user, device, or cloud service
+
+Avoid specific identifiers (users, IPs, timestamps).
+
+
+
+---
+
+## .Containment
+Describe any containment actions taken.
+
+If none were required, explicitly state why containment was not necessary.
+
+---
+
+## .Eradication
+Describe whether any malicious artifacts, sessions, or access needed to be removed.
+
+If not applicable, state that no malicious activity was identified.
+
+---
+
+## .Recovery / Remediation
+Describe any preventative or hardening actions taken after analysis.
+
+Examples:
+- MFA enabled
+- Policy adjustments
+- Monitoring recommendations
+
+---
+
+## .Lessons Learned
+Capture 2–3 concise takeaways.
+
+Examples:
+- Detection behavior observations
+- Logging or visibility insights
+- Process or response improvements
