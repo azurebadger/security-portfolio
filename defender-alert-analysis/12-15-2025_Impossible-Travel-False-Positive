@@ -1,6 +1,7 @@
-# Incident Response
+# .Incident Response
 
-**Platform:** Microsoft Defender XDR  
+**Platform:** 
+Microsoft Defender XDR  
 
 **Category:**  
 Initial Access
@@ -22,13 +23,13 @@ Entra ID, MFA, IP lookup OSINT
 
 ---
 
-## Identification
+## .Identification
 Defender flagged USER1 account as Impossible Travel when they logged in from the United States at 9:01pm then a successful login attempt from Switzerland occured at 9:50pm.
 
 This is considered a Sign In risk because it is not physically possible to travel from the United States to Switzerland in 49 minutes.
 ---
 
-## Analysis
+## .Analysis
 I started the investigation by cross checking the Defender alert with Entra ID sign in logs around the same timestamp to confirm complete account compromise.
 In Entra ID, I did not see any successful or even attempted logins from outside of the United States for USER1 account. 
 I returned to Defender to dig deeper in to the alert.
@@ -45,19 +46,20 @@ As an additonal safety measure, the Security Engineer turned MFA on for this use
 
 ---
 
-## Containment
+## .Containment
 Containment was not necessary as no account compromise was found.
 
 ---
 
-## Eradication
+## .Eradication
 No malicious activity was identified.
 
 ---
 
-## Recovery / Remediation
+## .Recovery / Remediation
 User added to MFA group as part of MFA rollout iniative in progress anyway.
 
 ---
 
 ## .Lessons Learned
+I learned that its possible that Microsoft services can appear as false user activity
