@@ -20,59 +20,47 @@ Escalated
 **Controls Involved:**  
 Email configuration SFP/DKIM/DMARC, transport rules, message trace, Entra ID sign in logs, 
 
+
 ---
 
 ## Identification
-Defender did not flag this incident but it was reported to IT directly from the affected user.
+The incident was reported directly to IT by the affected user after receiving a Microsoft Teams meeting invitation that appeared to originate from their own account. The user confirmed they did not send the meeting invite.
 
-USER1 directly reports that they received a Teams meeting invite from what appears to be their own account that they did not send.
-
+The message closely resembled a legitimate Teams invitation, raising concern for potential account compromise or advanced email spoofing.
 
 ---
 
 ## Analysis
-First step performed in the investigation was to check sign in logs for USER1 in Entra ID.  No suspicuous login activity was seen in last month of logs.
+The investigation began by validating whether the user account had been compromised.
 
-As a precaution, using Microsoft Admin Center, forced logout of all sessions for USER1 account.
+Entra ID sign-in logs were reviewed and showed no suspicious interactive or non-interactive authentication activity for the account during the relevant time window. As a precautionary measure, all active sessions were revoked.
 
-Performed a Message Trace in Exchange Admin center.
+Message tracing in the Exchange Admin Center confirmed that an email matching the user’s display name and email address was received and appeared to originate from an external source. The message failed DMARC checks while passing SPF validation.
 
-From the Received Message Trace, Confirmed that at 3:51pm an account the exact same as USER1's account did email what looked to be a Teams meeting.
-From the Sent Message Trace, confirmed an exact copy of USER1 account sent the Teams meeting message, the email was showing as sent by our USER1, however the username was all capitals.(
+Further analysis using Defender Explorer and VirusTotal confirmed that links embedded within the message were malicious and designed to mimic standard Microsoft Teams actions such as “Join Meeting” and call options.
 
-Double checked account name for any typos or mispellings to initially explain how the Threat Actor contacted USER1.  Account appears to be the exact same, no typos or tricky characters found.
-
-Additional message trace information:
-DMARC Failed
-SPF Pass
-
-Using Explorer in Defender, and double checked with VirusTotal, verified with all links within the email were custom crafted to contain malicious URLs disgused as normal expected links within Teams (example: Join Meeting, call options, etc)
-
-Visited USER1's desk to confirm they did not click any links.
-As a precaution while invetigation was still underway, walked USER1 through a password reset while at their desk.
-
-Concluded that a TA was emailing USER1 from a spoofed account to mimic their actual account. The emails were crafted to look exactly like a Teams meeting invite however all links were malicious.
-
-Escalacted to the Security team to review transport rules that allow pefrectly spoofed emails containing domain @ourcompany.com to be received maliciously.
-
+The display name and email address exactly matched the legitimate user account, with no visible typos or homoglyphs, indicating a high-fidelity spoof rather than simple lookalike impersonation.
 
 ---
 
 ## Containment
-Reset USER1 password
-Signed out of all Sessions via Microsoft 365 Admin Center
+- Forced sign-out of all active sessions for the affected account
+- User password reset performed in person
+- User confirmed no interaction with malicious links
 
 ---
 
 ## Eradication
-Advised USER1 to delete and ignore emails.
+The user was instructed to delete and ignore the malicious messages. No evidence of follow-on activity or compromise was identified.
 
 ---
 
 ## Recovery / Remediation
-Escalated to the Security Team to adjust transport rules.
+The incident was escalated to the security team to review and adjust email transport rules and domain authentication controls to prevent acceptance of perfectly spoofed internal-domain messages.
 
 ---
 
 ## Lessons Learned
-TA can perfectly spoof account names, it does not always have to contain a sneaky typo or character to purely look similar.
+- High-fidelity spoofed emails may exactly match legitimate internal accounts without visible typos
+- DMARC failures combined with SPF passes can still allow convincing spoofed messages to reach users
+- User-reported incidents are critical for detecting threats that bypass automated defenses
