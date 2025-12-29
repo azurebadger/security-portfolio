@@ -22,14 +22,37 @@ Email configuration SFP/DKIM/DMARC, transport rules, message trace, Entra ID sig
 
 ---
 
-## .Identification
+## Identification
 Defender did not flag this incident but it was reported to IT directly from the affected user.
 
 USER1 directly reports that they received a Teams meeting invite from what appears to be their own account that they did not send.
 
+First step performed in the investigation was to check sign in logs for USER1 in Entra ID.  No suspicuous login activity was seen in last month of logs.
+
+As a precaution, using Microsoft Admin Center, forced logout of all sessions for USER1 account.
+
+Performed a Message Trace in Exchange Admin center.
+
+From the Received Message Trace, Confirmed that at 3:51pm an account the exact same as USER1's account did email what looked to be a Teams meeting.
+From the Sent Message Trace, confirmed an exact copy of USER1 account sent the Teams meeting message, the email was showing as sent by our USER1, however the username was all capitals.(
+
+Double checked account name for any typos or mispellings to initially explain how the Threat Actor contacted USER1.  Account appears to be the exact same, no typos or tricky characters found.
+
+Additional message trace information:
+DMARC Failed
+SPF Pass
+
+Using Explorer in Defender, verified that all links within the email were custom crafted to contain malicious URLs disgused as normal expected links within Teams (example: Join Meeting, call options, etc)
+
+Visited USER1's desk to confirm they did not click any links.
+As a precaution while invetigation was still underway, walked USER1 through a password reset while at their desk.
+
+
+
+
 ---
 
-## .Analysis
+## Analysis
 Describe how the alert was investigated and validated.
 
 Focus on:
@@ -46,21 +69,21 @@ Obtained time and date when the meetings were received.
 
 ---
 
-## .Containment
+## Containment
 Describe any containment actions taken.
 
 If none were required, explicitly state why containment was not necessary.
 
 ---
 
-## .Eradication
+## Eradication
 Describe whether any malicious artifacts, sessions, or access needed to be removed.
 
 If not applicable, state that no malicious activity was identified.
 
 ---
 
-## .Recovery / Remediation
+## Recovery / Remediation
 Describe any preventative or hardening actions taken after analysis.
 
 Examples:
