@@ -1,6 +1,6 @@
 ## Incident Response
 
-**Platform:** Microsoft Defender XDR / Exchange Admin
+**Platform:** Microsoft Defender XDR, Exchange Admin
 
 **Category:**  
 Email Security
@@ -18,7 +18,7 @@ True Positive
 Escalated
 
 **Controls Involved:**  
-Email configuration SFP/DKIM/DMARC, transport rules, message trace, Entra ID sign in logs, 
+Email configuration SFP/DKIM/DMARC, transport rules, message trace, Entra ID sign in logs, Explorer, header analysis
 
 
 ---
@@ -26,20 +26,20 @@ Email configuration SFP/DKIM/DMARC, transport rules, message trace, Entra ID sig
 ## Identification
 The incident was reported directly to IT by the affected user after receiving a Microsoft Teams meeting invitation that appeared to originate from their own account. The user confirmed they did not send the meeting invite.
 
-The message closely resembled a legitimate Teams invitation, raising concern for potential account compromise or advanced email spoofing.
+The message closely resembled a legitimate Teams invitation, raising concern for potential account compromise.
 
 ---
 
 ## Analysis
 The investigation began by validating whether the user account had been compromised.
 
-Entra ID sign-in logs were reviewed and showed no suspicious interactive or non-interactive authentication activity for the account during the relevant time window. As a precautionary measure, all active sessions were revoked.
+Entra ID sign-in logs were reviewed and showed no suspicious interactive or non-interactive activity for the account during the relevant time window. As a precautionary measure, all active sessions were revoked.
 
 Message tracing in the Exchange Admin Center confirmed that an email matching the user’s display name and email address was received and appeared to originate from an external source. The message failed DMARC checks while passing SPF validation.
 
 Further analysis using Defender Explorer and VirusTotal confirmed that links embedded within the message were malicious and designed to mimic standard Microsoft Teams actions such as “Join Meeting” and call options.
 
-The display name and email address exactly matched the legitimate user account, with no visible typos or homoglyphs, indicating a high-fidelity spoof rather than simple lookalike impersonation.
+The display name and email address exactly matched the legitimate user account, with no visible typos or homoglyphs, indicating an advanced spoof rather than simple impersonation.
 
 ---
 
@@ -51,16 +51,16 @@ The display name and email address exactly matched the legitimate user account, 
 ---
 
 ## Eradication
-The user was instructed to delete and ignore the malicious messages. No evidence of follow-on activity or compromise was identified.
+The user was instructed to delete and ignore the malicious messages. No evidence of other malicious activity or compromise was identified.
 
 ---
 
 ## Recovery / Remediation
-The incident was escalated to the security team to review and adjust email transport rules and domain authentication controls to prevent acceptance of perfectly spoofed internal-domain messages.
+The incident was escalated to the security team to review and adjust email transport rules and domain authentication controls to prevent acceptance of perfectly spoofed internal domain messages.
 
 ---
 
 ## Lessons Learned
-- High-fidelity spoofed emails may exactly match legitimate internal accounts without visible typos
+- Advanced spoofed emails may exactly match legitimate internal accounts without visible typos
 - DMARC failures combined with SPF passes can still allow convincing spoofed messages to reach users
-- User-reported incidents are critical for detecting threats that bypass automated defenses
+- User reported incidents are critical for detecting threats that bypass automated defenses
