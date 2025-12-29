@@ -1,4 +1,4 @@
-# .Incident Response
+# Incident Response
 
 **Platform:** 
 Microsoft Defender XDR  
@@ -23,43 +23,38 @@ Entra ID, MFA, IP lookup OSINT
 
 ---
 
-## .Identification
+## Identification
 Defender flagged USER1 account as Impossible Travel when they logged in from the United States at 9:01pm then a successful login attempt from Switzerland occured at 9:50pm.
 
 This is considered a Sign In risk because it is not physically possible to travel from the United States to Switzerland in 49 minutes.
+
 ---
 
-## .Analysis
-I started the investigation by cross checking the Defender alert with Entra ID sign in logs around the same timestamp to confirm complete account compromise.
-In Entra ID, I did not see any successful or even attempted logins from outside of the United States for USER1 account. 
-I returned to Defender to dig deeper in to the alert.
-I noticed that the activity type for the Switzerland activity was referecing sharing a file from OneDrive and adding USER1 to a group.
-I ran the IP address through OSINT tools and it was not flagged as malicious.
-I selected one of the Activity instances and Googled the Event description (sanitizing USER1 information). 
-I learned that since the Source of the activity was showing App Connector, this likely explained that the activity was being performed but Microsofts cloud infrastruture services and not the user account itself. 
-I learned the App Connectors often run from Microsoft datacenters not user locations. 
-I learned that modifying groups activity was an administrative or directory action not a user action.
-
+## Analysis
+The alert was validated against Entra ID sign-in logs to determine whether any interactive authentication occurred from foreign locations during the alert timeframe. No successful or failed sign-ins from outside the United States were observed for the account.
+Further review of the Defender alert showed that the activity attributed to the foreign location involved OneDrive file sharing and group modification actions. The activity source was identified as App Connector, indicating the actions originated from Microsoft cloud infrastructure rather than a direct user sign-in.
+App Connector activity commonly runs from Microsoft datacenters and may appear as foreign geolocation activity. Group modification actions are directory-level operations and do not represent interactive user authentication.
+The associated IP address was reviewed using OSINT tools and was not flagged as malicious. Based on the absence of suspicious sign-in activity and the cloud-service origin of the actions, the alert was determined to be a false positive.
 Once I put together that there was no confirmed account sign ins and the action originated from Microsoft infrastruture, I was confident to report that it was a false positive.
-
-As an additonal safety measure, MFA was turned on for this user. No other action was taken,.
+As an additonal safety measure, MFA was turned on for this user. No other action was taken.
 
 ---
 
-## .Containment
+## Containment
 Containment was not necessary as no account compromise was found.
 
 ---
 
-## .Eradication
+## Eradication
 No malicious activity was identified.
 
 ---
 
-## .Recovery / Remediation
-User added to MFA group as part of MFA rollout iniative in progress anyway.
+## Recovery / Remediation
+As a precautionary hardening measure, the user was added to an MFA enforcement group as part of an ongoing MFA rollout initiative.
 
 ---
 
-## .Lessons Learned
-I learned that its possible that Microsoft services can appear as false user activity
+## Lessons Learned
+1. Microsoft cloud service activity (App Connector) can trigger Impossible Travel alerts despite no user authentication
+2. Entra ID sign-in logs are the authoritative source for validating identity compromise
