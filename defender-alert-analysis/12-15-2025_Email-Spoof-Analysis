@@ -27,6 +27,10 @@ Defender did not flag this incident but it was reported to IT directly from the 
 
 USER1 directly reports that they received a Teams meeting invite from what appears to be their own account that they did not send.
 
+
+---
+
+## Analysis
 First step performed in the investigation was to check sign in logs for USER1 in Entra ID.  No suspicuous login activity was seen in last month of logs.
 
 As a precaution, using Microsoft Admin Center, forced logout of all sessions for USER1 account.
@@ -42,61 +46,33 @@ Additional message trace information:
 DMARC Failed
 SPF Pass
 
-Using Explorer in Defender, verified that all links within the email were custom crafted to contain malicious URLs disgused as normal expected links within Teams (example: Join Meeting, call options, etc)
+Using Explorer in Defender, and double checked with VirusTotal, verified with all links within the email were custom crafted to contain malicious URLs disgused as normal expected links within Teams (example: Join Meeting, call options, etc)
 
 Visited USER1's desk to confirm they did not click any links.
 As a precaution while invetigation was still underway, walked USER1 through a password reset while at their desk.
 
+Concluded that a TA was emailing USER1 from a spoofed account to mimic their actual account. The emails were crafted to look exactly like a Teams meeting invite however all links were malicious.
 
+Escalacted to the Security team to review transport rules that allow pefrectly spoofed emails containing domain @ourcompany.com to be received maliciously.
 
-
----
-
-## Analysis
-Describe how the alert was investigated and validated.
-
-Focus on:
-- What logs or Defender data were reviewed
-- What signals were confirmed or disproven
-- Whether the activity originated from a user, device, or cloud service
-
-Avoid specific identifiers (users, IPs, timestamps).
-
-Checked USER1 account in Entra ID sign in logs to verify if account was compromised.
-No supicious signins over last 30 days.
-
-Obtained time and date when the meetings were received. 
 
 ---
 
 ## Containment
-Describe any containment actions taken.
-
-If none were required, explicitly state why containment was not necessary.
+Reset USER1 password
+Signed out of all Sessions via Microsoft 365 Admin Center
 
 ---
 
 ## Eradication
-Describe whether any malicious artifacts, sessions, or access needed to be removed.
-
-If not applicable, state that no malicious activity was identified.
+Advised USER1 to delete and ignore emails.
 
 ---
 
 ## Recovery / Remediation
-Describe any preventative or hardening actions taken after analysis.
-
-Examples:
-- MFA enabled
-- Policy adjustments
-- Monitoring recommendations
+Escalated to the Security Team to adjust transport rules.
 
 ---
 
-## .Lessons Learned
-Capture 2–3 concise takeaways.
-
-Examples:
-- Detection behavior observations
-- Logging or visibility insights
-- Process or response improvements
+## Lessons Learned
+TA can perfectly spoof account names, it does not always have to contain a sneaky typo or character to purely look similar.
