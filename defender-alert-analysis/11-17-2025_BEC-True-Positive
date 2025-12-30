@@ -28,43 +28,27 @@ Then, Defender detected unusual sign in properties from USER2.
 Then, Defender detected unusual sign in properties from USER3. Also flagging brute force and password spray attempts
 Lastly, Defender detected 4 malicious emails were sent then remediated by Defender and removed from inboxes.
 
-
-
 ---
 
 ## Analysis
-Describe how the alert was investigated and validated.
+I was responsible for investigating USER3's alert and account.
+First I verified in Entra ID that no successful login attempts had actually occured. I did see foreign attempts at logging in to the account but none successful.
 
-Focus on:
-- What logs or Defender data were reviewed
-- What signals were confirmed or disproven
-- Whether the activity originated from a user, device, or cloud service
-
-Avoid specific identifiers (users, IPs, timestamps).
 
 ---
 
 ## Containment
-Describe any containment actions taken.
-
-If none were required, explicitly state why containment was not necessary.
+Walked user through resetting password and enrolling in MFA.
 
 ---
 
 ## Eradication
-Describe whether any malicious artifacts, sessions, or access needed to be removed.
-
-If not applicable, state that no malicious activity was identified.
+No direct malicious activity for my user.
 
 ---
 
 ## Recovery / Remediation
-Describe any preventative or hardening actions taken after analysis.
-
-Examples:
-- MFA enabled
-- Policy adjustments
-- Monitoring recommendations
+Password reset, MFA enabled.
 
 ---
 
