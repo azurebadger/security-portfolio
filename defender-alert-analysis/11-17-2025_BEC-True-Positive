@@ -3,22 +3,22 @@
 **Platform:** Microsoft Defender XDR
 
 **Category:**  
-(Identity | Email Security | Endpoint Security | Cloud App Security | Network Security | Privileged Access | Account Compromise | Administrative Activity)
+Initial access, Persistence, Defense evasion, Credential access, Collection
 
 **Incident Type:**  
-(Impossible Travel | Atypical Sign-In | Phishing Attempt | Spoofed Email | Token Misuse | Password Spray | Suspicious File Sharing | Unauthorized Admin Action)
+BEC fraud, AiTM
 
 **Severity:**  
-(Informational | Low | Medium | High | Critical)
+High
 
 **Final Classification:**  
-(True Positive | False Positive | Benign Positive | Informational)
+True Positive
 
 **Response Level:**  
-(Investigative | Monitoring Only | Containment Required | Escalated)
+Investigative, Containment Required, Escalated
 
 **Controls Involved:**  
-(MFA | Conditional Access | Defender XDR | Entra ID Sign-In Logs | Email Filtering | Audit Logging)
+MFA, Defender XDR, Entra ID Sign-In Logs, Email rules
 
 ---
 
